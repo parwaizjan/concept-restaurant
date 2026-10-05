@@ -1,0 +1,44 @@
+---
+import { site, type Locale } from "../../data/site";
+import { useTranslations, localizePath } from "../../i18n/utils";
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const tagline = site.tagline[lang] ?? site.tagline.en;
+const reserveHref = localizePath("/reserve", lang);
+const menuHref = localizePath("/menu", lang);
+---
+
+<section class="relative isolate overflow-hidden">
+  <div
+    class="hero-media absolute inset-0 -z-10"
+    style={`--hero-wide:url(${site.heroImage});--hero-mobile:url(${site.heroImageMobile})`}
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="absolute inset-0 -z-10 bg-linear-to-t from-bg via-bg/70 to-bg/20"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div
+    class="container-page flex min-h-[72vh] flex-col justify-end pt-20 pb-14 sm:min-h-[80vh] sm:justify-center sm:pb-24"
+  >
+    <span class="eyebrow">{t("hero.eyebrow")}</span>
+    <h1 class="mt-4 max-w-3xl font-heading text-5xl leading-[0.98] sm:text-7xl">
+      {site.name}
+    </h1>
+    <p class="mt-4 max-w-xl text-lg text-text-muted sm:text-xl">{tagline}</p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href={reserveHref} class="btn btn-primary">
+        {t("hero.cta")}
+      </a>
+      <a href={menuHref} class="btn btn-outline">{t("hero.secondary")}</a>
+    </div>
+  </div>
+</section>

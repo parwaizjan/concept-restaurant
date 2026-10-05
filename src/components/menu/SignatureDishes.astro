@@ -1,0 +1,55 @@
+---
+import type { Locale } from "../../data/site";
+import type { Dish } from "../../lib/menu";
+import { formatPrice } from "../../lib/format";
+import { useTranslations, localizePath } from "../../i18n/utils";
+import MediaImage from "../MediaImage.astro";
+
+interface Props {
+  dishes: Dish[];
+  lang: Locale;
+}
+
+const { dishes, lang } = Astro.props;
+const t = useTranslations(lang);
+const featured = dishes.filter((dish) => dish.featured);
+---
+
+{
+  featured.length > 0 && (
+    <section class="container-page py-12">
+      <div class="mb-6 flex items-end justify-between gap-4">
+        <h2 class="font-heading text-3xl">{t("featured.title")}</h2>
+        <a
+          href={localizePath("/menu", lang)}
+          class="shrink-0 text-sm font-medium text-primary underline"
+        >
+          {t("common.viewMenu")}
+        </a>
+      </div>
+      <ul class="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        {featured.map((dish) => (
+          <li>
+            <a
+              href={`${localizePath("/menu", lang)}#category-${dish.category}`}
+              class="card group block h-full overflow-hidden"
+            >
+              <MediaImage
+                image={dish.image}
+                alt={dish.name}
+                sizes="(min-width: 1024px) 18rem, 45vw"
+                class="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+              <div class="flex items-baseline justify-between gap-2 p-3">
+                <span class="font-medium">{dish.name}</span>
+                <span class="shrink-0 font-semibold tabular-nums">
+                  {formatPrice(dish.price)}
+                </span>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}

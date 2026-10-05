@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ReservationForm from "../reserve/ReservationForm.astro";
+import { type Locale } from "../../data/site";
+import { useTranslations } from "../../i18n/utils";
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<BaseLayout lang={lang} path="/reserve" title={t("reservation.title")}>
+  <section class="container-page py-10">
+    <div class="mx-auto max-w-4xl">
+      <span class="eyebrow">{t("nav.reserve")}</span>
+      <h1 class="mt-2 font-heading text-4xl">{t("reservation.title")}</h1>
+      <p class="mt-2 max-w-2xl text-text-muted">{t("reservation.subtitle")}</p>
+
+      <ReservationForm lang={lang} />
+    </div>
+  </section>
+</BaseLayout>

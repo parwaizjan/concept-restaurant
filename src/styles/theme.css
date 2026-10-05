@@ -1,0 +1,92 @@
+/*
+ * Design tokens.
+ *
+ * `@theme inline` maps Tailwind utilities onto the runtime CSS variables below, so
+ * a clone rebrands by editing the variable values (and preset overrides) only.
+ * See docs/DESIGN-BRIEF.md.
+ */
+
+@theme inline {
+  --color-bg: var(--c-bg);
+  --color-surface: var(--c-surface);
+  --color-surface-alt: var(--c-surface-alt);
+  --color-text: var(--c-text);
+  --color-text-muted: var(--c-text-muted);
+  --color-primary: var(--c-primary);
+  --color-primary-strong: var(--c-primary-strong);
+  --color-on-primary: var(--c-on-primary);
+  --color-accent: var(--c-accent);
+  --color-border: var(--c-border);
+  --color-success: var(--c-success);
+  --color-danger: var(--c-danger);
+  --color-focus: var(--c-focus);
+
+  --font-heading: var(--font-heading-family);
+  --font-body: var(--font-body-family);
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.25rem;
+
+  --shadow-soft: 0 18px 40px rgb(0 0 0 / 0.35);
+}
+
+/* Default preset: Ember (dark warm editorial, charcoal + ember + saffron). */
+:root {
+  color-scheme: dark;
+  --c-bg: #141110;
+  --c-surface: #1e1a17;
+  --c-surface-alt: #241f1b;
+  --c-text: #f5efe8;
+  --c-text-muted: #b8a99c;
+  --c-primary: #e2542c;
+  --c-primary-strong: #c13f1c;
+  --c-on-primary: #ffffff;
+  --c-accent: #e0a32e;
+  --c-border: #332b26;
+  --c-success: #4e9a63;
+  --c-danger: #c94f4f;
+  --c-focus: #f2b84b;
+
+  --font-heading-family:
+    "Bricolage Grotesque", "Noto Sans Sinhala", "Noto Sans Tamil", system-ui,
+    sans-serif;
+  --font-body-family:
+    "Inter", "Noto Sans Sinhala", "Noto Sans Tamil", system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+}
+
+/* Alternate presets (pitch variety). Apply with <html data-theme="...">. */
+[data-theme="clay"] {
+  color-scheme: light;
+  --c-bg: #f6efe7;
+  --c-surface: #ffffff;
+  --c-surface-alt: #efe2d5;
+  --c-text: #2b211a;
+  --c-text-muted: #7a6858;
+  --c-primary: #c2502a;
+  --c-primary-strong: #a13f1f;
+  --c-on-primary: #ffffff;
+  --c-accent: #8a7a2e;
+  --c-border: #e4d3c3;
+  --c-success: #3f7d4e;
+  --c-danger: #b23a3a;
+  --c-focus: #1d4ed8;
+}
+
+[data-theme="midnight"] {
+  color-scheme: dark;
+  --c-bg: #0f1115;
+  --c-surface: #191d24;
+  --c-surface-alt: #212732;
+  --c-text: #eef1f6;
+  --c-text-muted: #a9b1c0;
+  --c-primary: #e0a32e;
+  --c-primary-strong: #c2881f;
+  --c-on-primary: #141110;
+  --c-accent: #e2542c;
+  --c-border: #2c3341;
+  --c-success: #5fb37a;
+  --c-danger: #e07a7a;
+  --c-focus: #8ab4ff;
+}

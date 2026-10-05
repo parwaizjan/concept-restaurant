@@ -1,0 +1,81 @@
+---
+import type { Locale } from "../../data/site";
+import type { Dish, MenuCategory } from "../../lib/menu";
+import { useTranslations } from "../../i18n/utils";
+import CategoryTabs from "./CategoryTabs.astro";
+import MenuItem from "./MenuItem.astro";
+
+interface Props {
+  categories: MenuCategory[];
+  dishes: Dish[];
+  lang: Locale;
+  /** Heading level for the section title (page uses h1, homepage h2). */
+  heading?: "h1" | "h2";
+}
+
+const { categories, dishes, lang, heading = "h2" } = Astro.props;
+const t = useTranslations(lang);
+const Heading = heading;
+const specials = dishes.filter((dish) => dish.special);
+---
+
+<section id="menu" class="container-page max-w-4xl py-10">
+  <header class="mb-4">
+    <Heading class="font-heading text-4xl">{t("menu.title")}</Heading>
+    <p class="mt-2 text-text-muted">{t("menu.subtitle")}</p>
+  </header>
+
+  <CategoryTabs
+    categories={categories}
+    lang={lang}
+    showSpecials={specials.length > 0}
+  />
+
+  {
+    dishes.length === 0 ? (
+      <p class="mt-8 text-text-muted">{t("menu.empty")}</p>
+    ) : (
+      <div class="mt-2">
+        {specials.length > 0 && (
+          <section
+            id="specials"
+            data-category-section="specials"
+            class="scroll-mt-40 pt-10 md:scroll-mt-32"
+          >
+            <h2 class="font-heading text-2xl">{t("specials.title")}</h2>
+            <p class="mt-1 text-sm text-text-muted">{t("specials.subtitle")}</p>
+            <ul class="mt-2 divide-y divide-border">
+              {specials.map((dish) => (
+                <MenuItem dish={dish} lang={lang} showSpecialBadge={false} />
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {categories.map((category) => {
+          const group = dishes.filter((dish) => dish.category === category.id);
+          if (group.length === 0) return null;
+          return (
+            <section
+              id={`category-${category.id}`}
+              data-category-section={category.id}
+              class="scroll-mt-40 pt-10 md:scroll-mt-32"
+            >
+              <h2 class="font-heading text-2xl">{category.name}</h2>
+              {category.description && (
+                <p class="mt-1 text-sm text-text-muted">
+                  {category.description}
+                </p>
+              )}
+              <ul class="mt-2 divide-y divide-border">
+                {group.map((dish) => (
+                  <MenuItem dish={dish} lang={lang} />
+                ))}
+              </ul>
+            </section>
+          );
+        })}
+      </div>
+    )
+  }
+</section>

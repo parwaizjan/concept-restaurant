@@ -1,0 +1,159 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import EmberHero from "../hero/EmberHero.astro";
+import SignatureDishes from "../menu/SignatureDishes.astro";
+import SpecialsStrip from "../menu/SpecialsStrip.astro";
+import Testimonials from "../Testimonials.astro";
+import GalleryMasonry from "../gallery/GalleryMasonry.astro";
+import MediaImage from "../MediaImage.astro";
+import ContactLinks from "../visit/ContactLinks.astro";
+import OpeningHours from "../visit/OpeningHours.astro";
+import MapEmbed from "../visit/MapEmbed.astro";
+import { site, type Locale } from "../../data/site";
+import { aboutImage } from "../../data/about-image";
+import { getCategories, getDishes } from "../../lib/menu";
+import { useTranslations, localizePath } from "../../i18n/utils";
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const [dishes, categories] = await Promise.all([
+  getDishes(lang),
+  getCategories(lang),
+]);
+
+const steps = [
+  { title: "how.step1Title", body: "how.step1Body" },
+  { title: "how.step2Title", body: "how.step2Body" },
+  { title: "how.step3Title", body: "how.step3Body" },
+] as const;
+---
+
+<BaseLayout lang={lang} path="/">
+  <EmberHero lang={lang} />
+
+  <section class="border-y border-border bg-surface py-4">
+    <div
+      class="container-page flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm"
+    >
+      <span class="text-text-muted"
+        >{site.address[lang] ?? site.address.en}</span
+      >
+      {
+        site.phone && (
+          <a class="underline" href={`tel:${site.phone.replace(/\s+/g, "")}`}>
+            {site.phone}
+          </a>
+        )
+      }
+      <a
+        href={localizePath("/reserve", lang)}
+        class="font-medium text-primary underline"
+      >
+        {t("common.reserveNow")}
+      </a>
+    </div>
+  </section>
+
+  <SignatureDishes dishes={dishes} lang={lang} />
+
+  <SpecialsStrip dishes={dishes} lang={lang} />
+
+  <section class="container-page grid items-center gap-8 py-12 md:grid-cols-2">
+    <div>
+      <span class="eyebrow">{t("about.eyebrow")}</span>
+      <h2 class="mt-2 font-heading text-3xl">{t("about.title")}</h2>
+      <p class="mt-3 text-text-muted">{t("about.teaser")}</p>
+      <a href={localizePath("/about", lang)} class="btn btn-outline mt-5">
+        {t("about.readMore")}
+      </a>
+    </div>
+    <MediaImage
+      image={aboutImage}
+      alt={t("about.imageAlt")}
+      widths={[480, 800, 1200]}
+      sizes="(min-width: 768px) 50vw, 100vw"
+      class="aspect-[4/3] w-full rounded-lg border border-border object-cover"
+    />
+  </section>
+
+  <section class="container-page py-12">
+    <h2 class="font-heading text-3xl">{t("how.title")}</h2>
+    <ol class="mt-6 grid gap-4 sm:grid-cols-3">
+      {
+        steps.map((step, index) => (
+          <li class="card p-4">
+            <span class="badge bg-surface-alt text-accent">{index + 1}</span>
+            <h3 class="mt-2 font-heading text-lg">{t(step.title)}</h3>
+            <p class="mt-1 text-sm text-text-muted">{t(step.body)}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="container-page py-12">
+    <div class="card p-6 sm:p-8">
+      <h2 class="font-heading text-2xl">{t("menu.title")}</h2>
+      <p class="mt-2 max-w-2xl text-sm text-text-muted">
+        {t("menu.subtitle")}
+      </p>
+      <ul class="mt-4 flex flex-wrap gap-2">
+        {
+          categories.map((category) => (
+            <li>
+              <a
+                href={`${localizePath("/menu", lang)}#category-${category.id}`}
+                class="badge border border-border px-3 py-1.5 text-text-muted hover:border-primary hover:text-primary"
+              >
+                {category.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a href={localizePath("/menu", lang)} class="btn btn-primary mt-6">
+        {t("common.viewMenu")}
+      </a>
+    </div>
+  </section>
+
+  <section class="container-page py-12">
+    <div class="mb-4 flex items-end justify-between gap-4">
+      <h2 class="font-heading text-2xl">{t("gallery.title")}</h2>
+      <a
+        href={localizePath("/gallery", lang)}
+        class="text-sm font-medium text-primary underline"
+      >
+        {t("common.viewGallery")}
+      </a>
+    </div>
+    <GalleryMasonry lang={lang} />
+  </section>
+
+  <Testimonials lang={lang} />
+
+  <section class="container-page py-12">
+    <h2 class="mb-6 font-heading text-3xl">{t("visit.title")}</h2>
+    <div class="grid gap-8 md:grid-cols-3">
+      <ContactLinks lang={lang} />
+      <OpeningHours lang={lang} />
+      <MapEmbed lang={lang} />
+    </div>
+  </section>
+
+  <section class="border-t border-border bg-surface py-14">
+    <div class="container-page text-center">
+      <h2 class="font-heading text-3xl">{t("hero.cta")}</h2>
+      <p class="mx-auto mt-2 max-w-md text-text-muted">
+        {t("footer.reserveNote")}
+      </p>
+      <a href={localizePath("/reserve", lang)} class="btn btn-primary mt-6">
+        {t("hero.cta")}
+      </a>
+    </div>
+  </section>
+</BaseLayout>

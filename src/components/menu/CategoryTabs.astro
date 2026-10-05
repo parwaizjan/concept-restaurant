@@ -1,0 +1,43 @@
+---
+import type { Locale } from "../../data/site";
+import type { MenuCategory } from "../../lib/menu";
+import { useTranslations } from "../../i18n/utils";
+
+interface Props {
+  categories: MenuCategory[];
+  lang: Locale;
+  showSpecials?: boolean;
+}
+
+const { categories, lang, showSpecials = false } = Astro.props;
+const t = useTranslations(lang);
+
+const chipClass =
+  "inline-flex min-h-9 items-center whitespace-nowrap rounded-full border border-border px-3 text-sm font-medium text-text-muted hover:border-primary hover:text-primary";
+---
+
+<nav
+  class="sticky top-[var(--header-h)] z-30 -mx-4 border-b border-border bg-bg/90 px-4 py-2 backdrop-blur"
+  aria-label={t("menu.jumpTo")}
+>
+  <ul class="no-scrollbar flex gap-2 overflow-x-auto">
+    {
+      showSpecials && (
+        <li>
+          <a href="#specials" class={chipClass}>
+            {t("specials.tab")}
+          </a>
+        </li>
+      )
+    }
+    {
+      categories.map((category) => (
+        <li>
+          <a href={`#category-${category.id}`} class={chipClass}>
+            {category.name}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

@@ -1,0 +1,66 @@
+---
+import type { Locale } from "../../data/site";
+import type { Dish } from "../../lib/menu";
+import { formatPrice } from "../../lib/format";
+import { useTranslations } from "../../i18n/utils";
+import DietaryBadges from "./DietaryBadges.astro";
+import SpiceMeter from "./SpiceMeter.astro";
+
+interface Props {
+  dish: Dish;
+  lang: Locale;
+  /** Hide the "Chef's special" badge (e.g. inside the Specials section). */
+  showSpecialBadge?: boolean;
+}
+
+const { dish, lang, showSpecialBadge = true } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<li
+  data-dish
+  data-id={dish.id}
+  data-price={dish.price}
+  data-available={String(dish.available)}
+  data-special={String(dish.special)}
+  class:list={["py-4", !dish.available && "opacity-60"]}
+>
+  <div class="price-leader">
+    <span class="font-medium">{dish.name}</span>
+    <span class="leader" aria-hidden="true"></span>
+    <span data-price-display class="font-semibold tabular-nums">
+      {formatPrice(dish.price)}
+    </span>
+  </div>
+
+  {
+    dish.description && (
+      <p class="mt-1 text-sm text-text-muted">{dish.description}</p>
+    )
+  }
+
+  <div class="mt-2 flex flex-wrap items-center gap-3">
+    <DietaryBadges veg={dish.veg} lang={lang} />
+    <SpiceMeter level={dish.spice} lang={lang} />
+    {
+      showSpecialBadge && (
+        <span
+          data-special-badge
+          hidden={!dish.special}
+          class="badge bg-accent text-bg"
+        >
+          {t("menu.special")}
+        </span>
+      )
+    }
+    <span
+      data-unavailable
+      hidden={dish.available}
+      class="text-xs font-semibold text-danger"
+    >
+      {t("menu.soldOut")}
+    </span>
+  </div>
+
+  {dish.note && <p class="mt-1 text-xs font-medium text-accent">{dish.note}</p>}
+</li>

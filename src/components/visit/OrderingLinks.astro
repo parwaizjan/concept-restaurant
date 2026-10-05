@@ -1,0 +1,49 @@
+---
+import { site, type Locale } from "../../data/site";
+import { useTranslations } from "../../i18n/utils";
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const apps = site.ordering.apps.filter((app) => app.url);
+---
+
+{
+  apps.length > 0 && (
+    <div>
+      <h2 class="font-heading text-lg">{t("visit.orderingTitle")}</h2>
+      <p class="mt-2 text-sm text-text-muted">{t("visit.orderingNote")}</p>
+      <ul class="mt-4 flex flex-wrap items-center gap-3">
+        {apps.map((app) => (
+          <li>
+            <a
+              href={app.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={app.name}
+              class="inline-flex overflow-hidden rounded-md"
+            >
+              {app.logo ? (
+                <img
+                  src={app.logo}
+                  alt={app.name}
+                  height="44"
+                  loading="lazy"
+                  decoding="async"
+                  class="h-11 w-auto"
+                />
+              ) : (
+                <span class="btn btn-outline !min-h-10 !px-4 text-sm">
+                  {app.name}
+                </span>
+              )}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}

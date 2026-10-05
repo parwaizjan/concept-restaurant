@@ -1,0 +1,35 @@
+---
+import type { Locale } from "../../data/site";
+import type { UiKey } from "../../i18n/ui";
+import { useTranslations } from "../../i18n/utils";
+
+interface Props {
+  level: number;
+  lang: Locale;
+}
+
+const { level, lang } = Astro.props;
+const t = useTranslations(lang);
+const label = t(`spice.${level}` as UiKey);
+const pips = [0, 1, 2];
+---
+
+{
+  level > 0 && (
+    <span
+      class="inline-flex items-center gap-0.5"
+      title={label}
+      role="img"
+      aria-label={`${t("spice.label")}: ${label}`}
+    >
+      {pips.map((pip) => (
+        <span
+          class:list={[
+            "h-2 w-2 rounded-full",
+            pip < level ? "bg-primary" : "bg-border",
+          ]}
+        />
+      ))}
+    </span>
+  )
+}

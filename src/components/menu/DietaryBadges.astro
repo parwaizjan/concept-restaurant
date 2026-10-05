@@ -1,0 +1,23 @@
+---
+import type { Locale } from "../../data/site";
+import { useTranslations } from "../../i18n/utils";
+
+interface Props {
+  veg: boolean;
+  lang: Locale;
+}
+
+const { veg, lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+{
+  veg && (
+    <span
+      class="badge border border-success/40 text-success"
+      title={t("menu.vegAlt")}
+    >
+      {t("menu.veg")}
+    </span>
+  )
+}

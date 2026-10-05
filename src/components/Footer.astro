@@ -1,0 +1,82 @@
+---
+import { site, type Locale } from "../data/site";
+import { useTranslations, localizePath } from "../i18n/utils";
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+
+const socials = Object.entries(site.socials).filter(([, url]) => url);
+const orderingApps = site.ordering.apps.filter((app) => app.url);
+---
+
+<footer class="mt-16 border-t border-border bg-surface-alt">
+  <div class="container-page grid gap-8 py-12 sm:grid-cols-3">
+    <div>
+      <div class="flex items-center gap-2">
+        <img src={site.logo} alt="" width="32" height="32" />
+        <span class="font-heading text-lg">{site.name}</span>
+      </div>
+      <p class="mt-2 max-w-xs text-sm text-text-muted">
+        {site.tagline[lang] ?? site.tagline.en}
+      </p>
+      {
+        socials.length > 0 && (
+          <ul class="mt-4 flex gap-3 text-sm">
+            {socials.map(([name, url]) => (
+              <li>
+                <a href={url} rel="noopener noreferrer" class="underline">
+                  {name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+
+    <nav aria-label="Footer">
+      <ul class="space-y-2 text-sm">
+        <li><a href={localizePath("/menu", lang)}>{t("nav.menu")}</a></li>
+        <li><a href={localizePath("/reserve", lang)}>{t("nav.reserve")}</a></li>
+        <li><a href={localizePath("/gallery", lang)}>{t("nav.gallery")}</a></li>
+        <li><a href={localizePath("/about", lang)}>{t("nav.about")}</a></li>
+        <li><a href={localizePath("/visit", lang)}>{t("nav.visit")}</a></li>
+      </ul>
+    </nav>
+
+    <div class="space-y-3 text-sm text-text-muted">
+      <p>{t("footer.reserveNote")}</p>
+      <p>{site.address[lang] ?? site.address.en}</p>
+      {
+        orderingApps.length > 0 && (
+          <ul class="flex flex-wrap gap-x-3 gap-y-1">
+            {orderingApps.map((app) => (
+              <li>
+                <a
+                  href={app.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="underline"
+                >
+                  {app.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </div>
+
+  <div class="border-t border-border py-4">
+    <p class="container-page text-xs text-text-muted">
+      © {year}
+      {site.name}. {t("footer.rights")}
+    </p>
+  </div>
+</footer>

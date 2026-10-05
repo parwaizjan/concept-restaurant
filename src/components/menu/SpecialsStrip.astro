@@ -1,0 +1,149 @@
+---
+import type { Locale } from "../../data/site";
+import type { Dish } from "../../lib/menu";
+import { formatPrice } from "../../lib/format";
+import { useTranslations, localizePath } from "../../i18n/utils";
+import MediaImage from "../MediaImage.astro";
+
+interface Props {
+  dishes: Dish[];
+  lang: Locale;
+}
+
+const { dishes, lang } = Astro.props;
+const t = useTranslations(lang);
+const specials = dishes.filter((dish) => dish.special);
+const menuHref = `${localizePath("/menu", lang)}#specials`;
+
+const arrowClass =
+  "inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-text-muted transition-colors hover:border-primary hover:text-primary disabled:opacity-40 disabled:hover:border-border disabled:hover:text-text-muted";
+---
+
+{
+  specials.length > 0 && (
+    <section class="border-y border-border bg-surface-alt py-10" data-specials>
+      <div class="container-page">
+        <div class="mb-4 flex items-end justify-between gap-4">
+          <div>
+            <h2 class="font-heading text-2xl">{t("specials.title")}</h2>
+            <p class="mt-1 text-sm text-text-muted">{t("specials.subtitle")}</p>
+          </div>
+          <div class="hidden shrink-0 items-center gap-2 md:flex">
+            <button
+              type="button"
+              data-specials-prev
+              class={arrowClass}
+              aria-label={t("specials.prev")}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                class="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              data-specials-next
+              class={arrowClass}
+              aria-label={t("specials.next")}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                class="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M9 6l6 6-6 6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <ul
+          data-specials-track
+          class="no-scrollbar flex gap-4 overflow-x-auto pb-2"
+        >
+          {specials.map((dish) => (
+            <li class="w-64 shrink-0" data-special-card data-id={dish.id}>
+              <a href={menuHref} class="card block h-full overflow-hidden">
+                {dish.image !== "/images/placeholder.svg" ? (
+                  <MediaImage
+                    image={dish.image}
+                    alt={dish.name}
+                    sizes="16rem"
+                    class="aspect-[4/3] w-full object-cover"
+                  />
+                ) : (
+                  <div
+                    class="flex aspect-[4/3] w-full items-center justify-center bg-linear-to-br from-primary/25 via-surface-alt to-bg"
+                    aria-hidden="true"
+                  >
+                    <svg viewBox="0 0 64 64" class="h-16 w-16">
+                      <path
+                        d="M32 12c6 9 12 12 12 21a12 12 0 0 1-24 0c0-5 3-7 5-11 1 3 3 4 3 4-1-6 2-10 4-14z"
+                        fill="#E0A32E"
+                      />
+                    </svg>
+                  </div>
+                )}
+                <div class="p-3">
+                  <div class="flex items-baseline justify-between gap-2">
+                    <p class="truncate font-medium">{dish.name}</p>
+                    <span
+                      data-price-display
+                      class="shrink-0 font-semibold tabular-nums"
+                    >
+                      {formatPrice(dish.price)}
+                    </span>
+                  </div>
+                  {dish.description && (
+                    <p class="mt-1 line-clamp-2 text-sm text-text-muted">
+                      {dish.description}
+                    </p>
+                  )}
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
+}
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-specials]").forEach((root) => {
+    const track = root.querySelector<HTMLElement>("[data-specials-track]");
+    const prev = root.querySelector<HTMLButtonElement>("[data-specials-prev]");
+    const next = root.querySelector<HTMLButtonElement>("[data-specials-next]");
+    if (!track) return;
+
+    const step = () => Math.max(240, track.clientWidth * 0.8);
+    const update = () => {
+      const max = track.scrollWidth - track.clientWidth - 1;
+      if (prev) prev.disabled = track.scrollLeft <= 0;
+      if (next) next.disabled = track.scrollLeft >= max;
+    };
+
+    prev?.addEventListener("click", () =>
+      track.scrollBy({ left: -step(), behavior: "smooth" }),
+    );
+    next?.addEventListener("click", () =>
+      track.scrollBy({ left: step(), behavior: "smooth" }),
+    );
+    track.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  });
+</script>
