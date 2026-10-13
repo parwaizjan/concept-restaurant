@@ -1,5 +1,6 @@
 import { site, type Locale } from "../data/site";
 import type { UiKey } from "../i18n/ui";
+import { tagDemoMessage } from "./whatsapp";
 
 export type ReservationDetails = {
   partySize: number;
@@ -73,7 +74,7 @@ export function buildReservationMessage(
   }
 
   parts.push("", t("msg.footer"));
-  return parts.join("\n");
+  return tagDemoMessage(parts.join("\n"));
 }
 
 /**
@@ -99,5 +100,5 @@ export function buildGroupEnquiryMessage(
   }
 
   parts.push("", t("msg.groupFooter"));
-  return parts.join("\n");
+  return tagDemoMessage(parts.join("\n"));
 }

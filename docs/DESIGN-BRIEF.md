@@ -68,6 +68,10 @@ text-primary bg-accent`. Classes: `.eyebrow .btn-primary .btn-secondary .card`
 
 Legal pages are deferred (see `AGENTS.md` §8). `robots.txt` is generated.
 
+A demo-only **sample ribbon** (`.demo-ribbon`) renders above the header on every
+page (all locales). It is slim, English-only, non-dismissible, brand-tinted, and its
+"Message us" link is a website enquiry — see `DECISIONS.md` D-R25.
+
 ## Home section order
 
 1. **Ember hero** — full-bleed dark food image, brand, tagline, primary CTA

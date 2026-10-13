@@ -1,6 +1,6 @@
 ---
 import { site, type Locale } from "../../data/site";
-import { buildWhatsAppUrl } from "../../lib/whatsapp";
+import { buildDemoWhatsAppUrl } from "../../lib/whatsapp";
 import { useTranslations } from "../../i18n/utils";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const chatUrl = buildWhatsAppUrl(t("msg.intro"));
+const chatUrl = buildDemoWhatsAppUrl(t("msg.intro"));
 const socials = Object.entries(site.socials).filter(([, url]) => url);
 ---
 

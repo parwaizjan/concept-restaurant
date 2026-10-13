@@ -128,6 +128,7 @@ rationale in `docs/DECISIONS.md`.
 | Menu categories, dishes, prices (source of truth)    | `src/content/menu/`, `src/content/categories/`, `src/assets/`                                   |
 | Live prices / sold-out / specials (owner)            | Google Sheet (documented in `docs/CONTENT-AND-MENU.md`)                                         |
 | UI labels, buttons, nav, reservation message copy    | `src/i18n/ui.ts` (all enabled languages)                                                        |
+| Sample ribbon / demo source tag                      | `src/components/DemoRibbon.astro`, `src/data/site.ts` (`demo.sourceTag`)                        |
 | Testimonials                                         | `src/data/testimonials.ts`                                                                      |
 | Hero layout / section order                          | `src/components/hero/`, `src/pages/index.astro`, `src/components/pages/HomePage.astro`          |
 | Reservation message format / date-time formatting    | `src/lib/reservation.ts`, `src/lib/whatsapp.ts`                                                 |

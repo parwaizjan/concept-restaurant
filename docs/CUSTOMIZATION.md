@@ -19,6 +19,10 @@ doc.
 1. On GitHub, use this repo's **Use this template** button to create a new private
    repo (do **not** fork — start with clean history).
 2. Clone it locally and `corepack pnpm install`.
+3. **Remove the demo sample ribbon**: delete `<DemoRibbon />` (and its import) from
+   `src/layouts/BaseLayout.astro` and set `site.demo.sourceTag: ""` in
+   `src/data/site.ts`. Leaving either in place brands a paid client site as a demo
+   and prefixes their messages with `[DEMO: Restaurant]`.
 
 ## 2. Rebrand
 
@@ -153,6 +157,8 @@ not a refactor:
   `public/_headers`, or leaving `siteUrl` at the demo domain.
 - Leaving the demo WhatsApp number, demo Sheet URL, or placeholder delivery-app
   links (`#`).
+- Forgetting to remove the sample ribbon and clear `site.demo.sourceTag`
+  (`[DEMO: Restaurant]`).
 - Enabling `si`/`ta` in `site.locales` before the content exists (blank strings).
 - Editing colors in components instead of `theme.css`.
 - Committing unoptimized multi-megabyte photos.

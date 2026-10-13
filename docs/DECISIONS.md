@@ -324,6 +324,25 @@ restaurant clients. See `AGENTS.md` for the rules.
 - **Alternatives:** link each card to its category section (rejected: the dish is
   hard to find); no link (rejected: dead cards).
 
+## D-R25 — Demo sample ribbon and source-tagged CTAs
+
+- **Date:** 2026-10-05
+- **Decision:** Render a slim, non-dismissible, **English-only** sample ribbon
+  (`.demo-ribbon`) above the header on every page and locale route, matching the
+  `demo-spa`/`demo-cafe` treatment (`--c-primary-strong` background so the small
+  text keeps AA contrast on the lighter ember). Its **"Message us"** link is a
+  _website enquiry_ to the studio (+94 74 343 0033) with the message "Hi Zuvo Web
+  Studio Express, I'd like a website like the Spice & Ember demo for my shop."
+  Every visitor-facing **demo** CTA (reservation, larger-group enquiry, contact) is
+  prefixed with `[DEMO: Restaurant]` via the single config value
+  `site.demo.sourceTag` and the central `tagDemoMessage` / `buildDemoWhatsAppUrl`
+  helpers. A clone removes the ribbon and clears `sourceTag` (D-R22 / CUSTOMIZATION).
+- **Rationale:** Standardises the Express concept demos and lets the studio tell a
+  website enquiry apart from a diner's reservation. Centralising the tag in one
+  config value keeps every CTA consistent.
+- **Alternatives:** per-CTA tags (rejected: drift); tag the ribbon too (rejected:
+  the ribbon _is_ the website enquiry).
+
 ---
 
 ## Open questions

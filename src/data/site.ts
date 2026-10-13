@@ -129,6 +129,13 @@ export const site = {
     ] as OrderingApp[],
   },
 
+  // Demo-only. The sample ribbon (see BaseLayout) links here; every visitor-facing
+  // demo message is prefixed with `sourceTag` so it is distinguishable from a
+  // website enquiry. A real clone removes the ribbon and clears `sourceTag`.
+  demo: {
+    sourceTag: "[DEMO: Restaurant]",
+  },
+
   // SEO — false for the concept demo, true for a real restaurant clone.
   indexable: false,
   siteUrl: "https://demo-restaurant.zuvo.lk",

@@ -182,6 +182,23 @@
     top: 0.5rem;
   }
 
+  /* Demo-only sample ribbon above the header (see DemoTibbon.astro). Uses the
+     darker primary so the small text keeps AA contrast on our lighter ember. */
+  .demo-ribbon {
+    background-color: var(--c-primary-strong);
+    color: var(--c-on-primary);
+    text-align: center;
+    padding-block: 0.375rem;
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+
+  .demo-ribbon a {
+    color: inherit;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
   /* Editorial menu row: name · dotted leader · price. */
   .price-leader {
     display: flex;
