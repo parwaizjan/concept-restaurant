@@ -24,12 +24,12 @@ cost**, not for one-off bespoke work.
 - Demo site: `https://demo-restaurant.zuvo.lk`
 - Hosting: Cloudflare Workers, custom domain via `*.zuvo.lk`
 - Source: private GitHub repo (`parwaizjan/concept-restaurant`)
-- Catalogue: listed on `express.zuvo.lk` (see `docs/EXPRESS-HANDOFF.md`)
+- Catalogue: listed on `zuvo.lk` (see `docs/EXPRESS-HANDOFF.md`)
 - Target market: Sri Lankan restaurants (and the same structure reuses for cafés)
 - Languages: **English first**, with first-class Sinhala (`si`) and Tamil (`ta`)
   structure already in place (see rule §3.6)
 
-This is the fourth entry in the Zuvo Web Studio Express concept series, after
+This is the fourth entry in the Zuvo Web Studio concept series, after
 `concept-laundry-shop`, `concept-bakery` and `concept-salon`. It ports
 `concept-salon`'s structure (see `docs/DECISIONS.md` D-R01) but must look and feel
 **clearly distinct** from the salon and bakery demos (D-R02).
@@ -187,8 +187,8 @@ Track unresolved decisions here so agents do not silently pick one:
   whether clones need them (especially if Meta Pixel / analytics are enabled).
 - **Translations.** Sinhala/Tamil content will be supplied later. Decide whether
   dish names come from the Sheet, the content collections, or both.
-- **Screenshot for express.** `public/demos/restaurant.webp` must be captured for
-  `express.zuvo.lk` once the demo is live. See `docs/EXPRESS-HANDOFF.md`.
+- **Screenshot for zuvo.lk.** `public/demos/restaurant.webp` must be captured for
+  `zuvo.lk` once the demo is live. See `docs/EXPRESS-HANDOFF.md`.
 - **Native-speaker review** of Sinhala/Tamil strings before pitching, once enabled.
 
 When you resolve one of these, move the decision into `docs/DECISIONS.md` and leave
@@ -207,5 +207,5 @@ a short note here.
 - `docs/CLIENT-CHECKLIST.md` — client-facing intake list and WhatsApp message; keep
   it free of developer jargon and credentials.
 - `docs/DEPLOYMENT.md` — Cloudflare Workers, domain, GitHub, indexing headers.
-- `docs/EXPRESS-HANDOFF.md` — what the express.zuvo.lk repo must change to list this
+- `docs/EXPRESS-HANDOFF.md` — what the zuvo.lk repo must change to list this
   demo.

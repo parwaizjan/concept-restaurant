@@ -6,7 +6,7 @@ preferred date and preferred time. No payments, no backend, no monthly cost.
 
 This repository is a **concept / template**. It is shown to restaurant owners as a
 live demo and then cloned and rebranded into that restaurant's real site. The demo
-lives at `https://demo-restaurant.zuvo.lk`, and is catalogued on `express.zuvo.lk`.
+lives at `https://demo-restaurant.zuvo.lk`, and is catalogued on `zuvo.lk`.
 
 > If you are an AI agent or a developer about to change anything, read
 > [`AGENTS.md`](./AGENTS.md) first. It contains the non-negotiable rules.
@@ -52,7 +52,7 @@ If `pnpm` is installed globally, drop the `corepack` prefix.
 | [`docs/CUSTOMIZATION.md`](./docs/CUSTOMIZATION.md)       | Clone/rebrand checklist for a real restaurant                   |
 | [`docs/CLIENT-CHECKLIST.md`](./docs/CLIENT-CHECKLIST.md) | Client-facing intake list and ready-to-send WhatsApp message    |
 | [`docs/DEPLOYMENT.md`](./docs/DEPLOYMENT.md)             | Cloudflare Workers, domain, GitHub, indexing headers            |
-| [`docs/EXPRESS-HANDOFF.md`](./docs/EXPRESS-HANDOFF.md)   | Exact changes the express.zuvo.lk repo needs to list this demo  |
+| [`docs/EXPRESS-HANDOFF.md`](./docs/EXPRESS-HANDOFF.md)   | Exact changes the zuvo.lk repo needs to list this demo  |
 
 ## Status
 

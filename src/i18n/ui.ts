@@ -20,10 +20,10 @@ export const defaultLang: Locale = "en";
 const en = {
   "a11y.skip": "Skip to content",
 
-  "ribbon.text": "Sample website — a demo by Zuvo Web Studio Express",
+  "ribbon.text": "Sample website — a demo by Zuvo Web Studio",
   "ribbon.cta": "Message us",
   "ribbon.enquiry":
-    "Hi Zuvo Web Studio Express, I'd like a website like the {site} demo for my shop.",
+    "Hi Zuvo Web Studio, I'd like a website like the {site} demo for my shop.",
 
   "nav.home": "Home",
   "nav.menu": "Menu",
